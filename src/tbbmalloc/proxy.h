@@ -27,7 +27,27 @@
 #endif
 
 #include <stddef.h>
+// The following definition was taken from /usr/include/malloc.h as provided by
+// the glibc-devel-2.19-17.4.x86_64 package on openSUSE Leap 42.1; it is
+// made available under the GNU Lesser General Public License v2.1 or later.
+// See <https://www.gnu.org/licenses>.
+//
+// Copyright (C) 1996-2014 Free Software Foundation, Inc.
+struct mallinfo
+{
+  int arena;    /* non-mmapped space allocated from system */
+  int ordblks;  /* number of free chunks */
+  int smblks;   /* number of fastbin blocks */
+  int hblks;    /* number of mmapped regions */
+  int hblkhd;   /* space in mmapped regions */
+  int usmblks;  /* maximum total allocated space */
+  int fsmblks;  /* space available in freed fastbin blocks */
+  int uordblks; /* total allocated space */
+  int fordblks; /* total free space */
+  int keepcost; /* top-most, releasable (via malloc_trim) space */
+};
 
+    
 extern "C" {
     void * scalable_malloc(size_t size);
     void * scalable_calloc(size_t nobj, size_t size);
